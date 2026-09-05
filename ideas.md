@@ -80,3 +80,11 @@ The interface now treats cyan as confirmed telemetry/geography, orange as action
 Coordinate hairlines, compact mono annotations, route-line geometry, and the `// OPS` panel stamp are treated as recurring grammar across the whole canvas, not map-only decoration.
 
 The chosen typography moves the main command line and numeric readouts toward uppercase and IBM Plex Mono instrumentation while keeping Space Grotesk for legible supporting copy.
+
+## Full-stack assumptions
+
+The current operational dataset is seeded lazily for the first Polaris 06 snapshot request. The seed is idempotent by mission code, so subsequent requests read the same persisted mission, six-person roster, routes, waypoints, assets, inventory, alerts, movement logs, and reports.
+
+The six named people are represented as expedition team members with operational responsibility roles. Database write operations are restricted to authenticated admin operators, while the roster roles describe domain ownership and field responsibility. This keeps the prototype safe until a future user directory can map Manus identities to expedition roles directly.
+
+The UI uses a graceful field-network error state when the snapshot query fails. The generated polar imagery is presentation-only; future versions should replace the current seeded route and telemetry values with verified weather, GPS, vehicle telemetry, inventory barcode, and notification integrations.
